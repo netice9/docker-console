@@ -2,10 +2,16 @@
 
 angular.module('dockerConsoleApp')
   .controller('NavbarCtrl', function ($scope, $location) {
-    $scope.menu = [{
-      'title': 'Home',
+    $scope.menu = [
+    {
+      'title': 'Main',
       'link': '/'
-    }];
+    },
+    {
+      'title': 'Containers',
+      'link': '/containers'
+    }
+    ];
 
     $scope.isCollapsed = true;
 
