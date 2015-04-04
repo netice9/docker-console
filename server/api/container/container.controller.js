@@ -7,5 +7,5 @@ var docker = require('../../docker');
 // Get list of containers
 exports.index = function(req, res) {
 
-  res.json(Object.keys(docker.containers));
+  res.json(docker.containers);
 };

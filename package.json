@@ -8,7 +8,7 @@
     "compression": "~1.0.1",
     "connect-mongo": "^0.4.1",
     "cookie-parser": "~1.0.1",
-    "docker-tracker": "^0.1.0",
+    "docker-tracker": "^0.2.0",
     "dockerode": "^2.1.1",
     "ejs": "~0.8.4",
     "errorhandler": "~1.0.0",

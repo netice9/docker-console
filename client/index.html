@@ -17,6 +17,7 @@
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
+    <link rel="stylesheet" href="bower_components/xterm.js/src/xterm.css">
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
@@ -43,13 +44,14 @@
       <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
       <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/tty/tty.min.js"></script>
+      <script src="bower_components/xterm.js/src/xterm.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/container/container.controller.js"></script>
           <script src="app/containers/containers.controller.js"></script>
           <script src="app/containers/containers.js"></script>
           <script src="app/main/main.controller.js"></script>

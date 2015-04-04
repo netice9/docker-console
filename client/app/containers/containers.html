@@ -6,15 +6,32 @@
     <thead>
       <tr>
         <th>Id</th>
+        <th>Name</th>
+        <th>Command</th>
+        <th>Running?</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="container in containers">
-        <td>{{ container }}</td>
+      <tr ng-repeat="(id, container) in containers" ng-controller="ContainerCtrl">
+        <td>{{ id }}</td>
+        <td>{{ container.Name }}</td>
+        <td>{{ container.Config.Cmd }}</td>
+        <td>{{ container.State.Running }}</td>
+        <td><button ng-click="toggleTerminal()" class="btn btn-default">Terminal</button></td>
       </tr>
     </tbody>
   </table>
 </div>
+
+
+<div class="container">
+  Terminal:
+  <div class="terminal-container"></div>
+</div>
+
+<!-- <button id="open" class="btn btn-default">Terminal</button>
+ -->
 
 <footer class="footer">
   <div class="container">
