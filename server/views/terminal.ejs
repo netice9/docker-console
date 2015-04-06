@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>xterm.js demo</title>
+        <link rel="stylesheet" href="/xterm.js/src/xterm.css" />
+        <script src="/xterm.js/addons/fit/fit.js" ></script>
+        <link rel="stylesheet" href="/xterm.js/addons/fullscreen/fullscreen.css" />
+        <link rel="stylesheet" href="/xterm.js/src/style.css" />
+        <script src="/xterm.js/src/xterm.js" ></script>
+
+    </head>
+    <body>
+        <h1>
+            Exec bash on <%= containerId %>
+        </h1>
+        <div id="terminal-container"></div>
+
+        <script>
+        var terminalContainer = document.getElementById('terminal-container');
+        var term = new Terminal();
+        term.open(terminalContainer);
+
+        term.prompt = function () {
+          term.write('\r\n' + prompt);
+        };
+
+        var uri = "ws://"+location.hostname+":"+location.port+"/<%= containerId %>"
+
+        var ws = new WebSocket(uri);
+        ws.onopen = function()
+        {
+          // ws.send(JSON.stringify({type: 'open terminal', containerId: '<%= containerId %>'}))
+          // Web Socket is connected, send data using send()
+          // ws.send("Message to send");
+          // alert("Message is sent...");
+        };
+        ws.onmessage = function (evt)
+        {
+          var receivedMsg = evt.data;
+
+          term.write(receivedMsg);
+          // var data = JSON.parse(receivedMsg);
+          // if (data.type == 'output') {
+          //   term.write(data.data);
+          // }
+          // alert("Message is received..." + received_msg);
+        };
+        ws.onclose = function()
+        {
+          // websocket is closed.
+          alert("Connection is closed...");
+        };
+
+
+        term.on('key', function (key, ev) {
+          ws.send(key);
+        });
+
+        // term.on('key', function (key, ev) {
+        //   var printable = (!ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey);
+
+        //   if (ev.keyCode == 13) {
+        //     term.prompt();
+        //   } else if (ev.keyCode == 8) {
+        //     /*
+        //      * Do not delete the prompt
+        //      */
+        //     if (term.x > 2) {
+        //       term.write('\b \b');
+        //     }
+        //   } else if (printable) {
+        //     term.write(key);
+        //   }
+        // });
+        </script>
+    </body>
+</html>

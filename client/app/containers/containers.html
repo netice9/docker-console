@@ -18,7 +18,7 @@
         <td>{{ container.Name }}</td>
         <td>{{ container.Config.Cmd }}</td>
         <td>{{ container.State.Running }}</td>
-        <td><button ng-click="toggleTerminal()" class="btn btn-default">Terminal</button></td>
+        <td><a ng-href="/api/terminals/{{id}}" class="btn btn-default" target="_blank">Terminal</button></td>
       </tr>
     </tbody>
   </table>
