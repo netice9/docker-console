@@ -24,7 +24,7 @@
           term.write('\r\n' + prompt);
         };
 
-        var uri = "ws://"+location.hostname+":"+location.port+"/<%= containerId %>"
+        var uri = "ws://"+location.hostname+":"+location.port+"/containerSocket/<%= containerId %>"
 
         var ws = new WebSocket(uri);
         ws.onopen = function()

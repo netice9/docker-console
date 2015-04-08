@@ -12,8 +12,6 @@ var config = require('./config/environment');
 // Setup server
 var app = express();
 
-app.engine('.haml', require('hamljs').renderFile);
-
 var server = require('http').createServer(app);
 require('./config/express')(app);
 require('./routes')(app);

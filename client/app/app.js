@@ -12,4 +12,16 @@ angular.module('dockerConsoleApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+  }).run(function($rootScope) {
+
+    var uri = "ws://"+location.hostname+":"+location.port+"/dockerEvents"
+    var ws = new WebSocket(uri);
+    ws.onopen = function() {
+    };
+    ws.onmessage = function (evt) {
+      var receivedMsg = evt.data;
+      $rootScope.$broadcast('dockerUpdate', receivedMsg);
+    };
+    ws.onclose = function() {
+    };
   });

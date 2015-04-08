@@ -5,11 +5,22 @@ var ws = require('ws');
 var Docker=require('dockerode');
 var docker=new Docker();
 var stream = require('stream');
+var dockerTracker = require('docker-tracker')(docker);
+
+function forwardDockerEvents(ws) {
+  ['create', 'start', 'stop', 'destroy'].forEach(function(event){
+    var listener = function(id) {
+      ws.send(JSON.stringify({type: event, id: id}));
+    };
+    dockerTracker.on(event, listener);
+    ws.on('close', function() {
+      dockerTracker.removeListener(event, listener);
+    });
+  });
+}
 
 
 function forwardTerminalData(containerId, ws) {
-
-  console.log("ws keys: %j", ws.upgradeReq.headers);
 
   var container = docker.getContainer(containerId);
   var options = {
@@ -43,29 +54,22 @@ function forwardTerminalData(containerId, ws) {
 
     });
   });
-
-
-
 }
-
-
-
-
 
 
 module.exports.connect = function(server) {
   var wss = new ws.Server({server: server});
-  wss.on('connection', function(ws, req) {
+  wss.on('connection', function(ws) {
 
-    var containerId = ws.upgradeReq.url.substr(1);
+    var path = ws.upgradeReq.url.substr(1).split('/');
 
-    forwardTerminalData(containerId, ws);
+    if (path.length == 2 && path[0] == 'containerSocket') {
+      forwardTerminalData(path[1], ws);
+    } else if (path[0] == 'dockerEvents') {
+      forwardDockerEvents(ws);
+    } else {
+      ws.close();
+    }
 
-
-    // ws.once('message', function(msg) {
-    //   var data = JSON.parse(msg);
-    //   if (data.type == "open terminal") {
-    //   }
-    // });
   });
 };
