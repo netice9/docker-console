@@ -14,11 +14,14 @@
     </thead>
     <tbody>
       <tr ng-repeat="(id, container) in containers" ng-controller="ContainerCtrl">
-        <td>{{ id }}</td>
+        <td class="image-name">{{ id }}</td>
         <td>{{ container.Name }}</td>
         <td>{{ container.Config.Cmd }}</td>
         <td>{{ container.State.Running }}</td>
-        <td><a ng-href="/api/terminals/{{id}}" class="btn btn-default" target="_blank">Terminal</button></td>
+        <td>
+          <a ng-href="/api/terminals/{{id}}" class="btn btn-default" target="_blank">Terminal</button>
+          <a ng-href="#" class="btn btn-danger" ng-click="wipe()">Wipe</button>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -5,5 +5,6 @@ var tracker = require('docker-tracker')(docker);
 
 
 module.exports = {
-  containers: tracker.containers
+  containers: tracker.containers,
+  docker: docker
 };
