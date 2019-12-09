@@ -18,7 +18,7 @@
     "method-override": "~1.0.0",
     "morgan": "~1.0.0",
     "serve-favicon": "~2.0.1",
-    "ws": "^0.7.1"
+    "ws": "^7.2.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
